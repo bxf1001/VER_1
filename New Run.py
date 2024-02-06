@@ -59,7 +59,7 @@ def retrieve_data():
             print("choose (1, 2, or 3):", user_data[user_id])
             field1 = input("Enter field to print (or 'all' to print all fields): ")
             field2 = input("Enter field to print (or 'all' to print all fields): ")
-            print(user_data[user_id])
+           
             if field1  in user_data[user_id]:
                 add_time1=int(input("enter time:: "))
                 add_time2=int(input("enter time:: "))
