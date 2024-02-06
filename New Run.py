@@ -1,6 +1,8 @@
 import json
 import datetime
+from time import sleep
 import Whatsappcall
+import pyautogui
 try:
     with open('user_data.json', 'r') as f:
         user_data = json.load(f)
@@ -23,8 +25,9 @@ def store_data():
 
 def retrieve_data():
     enter_calls = input("Choose Calls (1/2): ")
-    user_id = input("Enter User ID: ")
+    
     if enter_calls=='1':
+        user_id = input("Enter User ID: ")
         if user_id in user_data:
             print("choose (1, 2, or 3):", user_data[user_id])
             field = input("Enter field to print (or 'all' to print all fields): ")
@@ -38,15 +41,20 @@ def retrieve_data():
                 print(f"{user_data[user_id][field]} (Called at {add_timer1})")
                 timestamped_data = {
                     "user_id": user_id,
-                    "field": field1,
-                    "number": user_data[user_id][field1],
+                    "field": field,
+                    "number": user_data[user_id][field],
                     "timestamp": add_timer1
                 }
                 with open('timestamped_data.json', 'a') as f:
                     json.dump(timestamped_data, f)
                     f.write('\n')  # Add a newline for readability
-        
-    elif enter_calls=='2':
+            else:
+                print("Invalid field.")
+        else:
+            print("User not found.")
+      
+    if enter_calls=='2':
+        user_id = input("Enter User ID: ")
         if user_id in user_data:
             print("choose (1, 2, or 3):", user_data[user_id])
             field1 = input("Enter field to print (or 'all' to print all fields): ")
@@ -70,9 +78,9 @@ def retrieve_data():
                 with open('timestamped_data.json', 'a') as f:
                     json.dump(timestamped_data, f)
                     f.write('\n')  # Add a newline for readability
-
-
-            if field2  in user_data[user_id]:
+                sleep(1)
+                pyautogui.hotkey('ctrl', 'alt', 'num0')
+                sleep(3)
                 Whatsappcall.phone_number(user_data[user_id][field2])
                 Whatsappcall.timer(add_time2)
                 add_timer3 = datetime.datetime.now().strftime("%d-%m-%Y %H:%M:%S")
@@ -87,10 +95,12 @@ def retrieve_data():
                 with open('timestamped_data.json', 'a') as f:
                     json.dump(timestamped_data, f)
                     f.write('\n')  # Add a newline for readability
+            else:
+                print("Invalid field.")
         else:
-            print("Invalid field.")
+            print("User not found.")
     else:
-        print("User not found.")
+        print("invalid option")  
 def print_timestamped_data(user_id):
     try:
         with open('timestamped_data.json', 'r') as f:
