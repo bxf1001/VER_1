@@ -8,5 +8,12 @@ url = f"whatsapp://send?phone=+91{number}"
 subprocess.Popen(["cmd", "/C", f"start {url}"], shell=True)
 time.sleep(0.25)
 subprocess.Popen(["cmd", "/C", f"start {url}"], shell=True)
-app.WhatsAppDialog.VideoCallButton.click()  # Replace with actual control names
-#app.WhatsAppDialog.VideoCallButton.click_input()  # Simulates cursor movement and clicks
+time.sleep(1)
+while True:
+    try:
+        time.sleep(2)
+        app.WhatsAppDialog.VideoCallButton.click() 
+        break
+    except:
+        time.sleep(1)
+        continue
