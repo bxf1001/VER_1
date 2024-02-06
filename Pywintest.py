@@ -17,3 +17,15 @@ while True:
     except:
         time.sleep(1)
         continue
+import subprocess
+import time
+from pywinauto import Desktop, Application
+
+
+
+app = Application(backend='uia').start(r"cmd.exe /c start shell:appsFolder\5319275A.WhatsAppDesktop_cv1g1gvanyjgm!App", create_new_console=True, wait_for_idle=False)
+app = Application(backend='uia').connect(title_re=".*WhatsApp.*") # Replace with the actual path
+
+#app.window(title_re="WhatsApp").print_control_identifiers()
+time.sleep(2)
+app.WhatsAppDialog.child_window(title="Video call", auto_id="VideoCallButton", control_type="Button").click()
